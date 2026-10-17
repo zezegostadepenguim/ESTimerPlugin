@@ -92,6 +92,27 @@ void TimerPlugin::Message(const char* text)
     DisplayUserMessage(kPluginName, "Timer", text, true, false, false, false, false);
 }
 
+bool TimerPlugin::OnCompileCommand(const char* sCommandLine)
+{
+    if (!sCommandLine)
+        return false;
+
+    const estimer::Command cmd = estimer::ParseCommand(sCommandLine);
+    if (cmd.type == estimer::CommandType::NotForUs)
+        return false;
+
+    if (screens_.empty())
+        Message("Nenhuma tela de radar ligada ao plugin: em OTHER SET > Plug-ins, coloque a tela em "
+                "\"Allowed to draw on types\" para ver a janela do timer.");
+
+    if (cmd.type == estimer::CommandType::Show || cmd.type == estimer::CommandType::Hide) {
+        for (TimerScreen* screen : screens_)
+            screen->SetVisible(cmd.type == estimer::CommandType::Show);
+        return true;
+    }
+    return HandleCommand(cmd);
+}
+
 bool TimerPlugin::HandleCommand(const estimer::Command& cmd)
 {
     using estimer::CommandType;

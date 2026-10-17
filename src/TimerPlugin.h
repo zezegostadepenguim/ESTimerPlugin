@@ -20,6 +20,9 @@ public:
                                                         bool GeoReferenced, bool CanBeSaved,
                                                         bool CanBeCreated) override;
     void OnTimer(int Counter) override;
+    // Chamado quando nenhuma tela tratou o comando (ex. tela não liberada em
+    // "Allowed to draw on types").
+    bool OnCompileCommand(const char* sCommandLine) override;
 
     // Executa um comando já interpretado que afeta o timer (não show/hide,
     // que são por tela). Retorna true se foi tratado.

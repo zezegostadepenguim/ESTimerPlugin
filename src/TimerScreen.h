@@ -25,6 +25,8 @@ public:
                             bool Released) override;
     bool OnCompileCommand(const char* sCommandLine) override;
 
+    void SetVisible(bool visible);
+
     // Chamado pelo plugin ao ser destruído antes desta tela.
     void Detach() { plugin_ = nullptr; }
 

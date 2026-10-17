@@ -237,6 +237,13 @@ void TimerScreen::OnMoveScreenObject(int ObjectType, const char* sObjectId, POIN
     RequestRefresh();
 }
 
+void TimerScreen::SetVisible(bool visible)
+{
+    visible_ = visible;
+    SaveState();
+    RequestRefresh();
+}
+
 bool TimerScreen::OnCompileCommand(const char* sCommandLine)
 {
     if (!sCommandLine || !plugin_)
@@ -248,9 +255,7 @@ bool TimerScreen::OnCompileCommand(const char* sCommandLine)
         return false;
     case estimer::CommandType::Show:
     case estimer::CommandType::Hide:
-        visible_ = cmd.type == estimer::CommandType::Show;
-        SaveState();
-        RequestRefresh();
+        SetVisible(cmd.type == estimer::CommandType::Show);
         return true;
     default:
         return plugin_->HandleCommand(cmd);
