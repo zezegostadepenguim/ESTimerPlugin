@@ -1,0 +1,17 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar
+        run: cmake -S . -B build -DCMAKE_CXX_FLAGS="-Wall -Wextra -Werror"
+      - name: Compilar
+        run: cmake --build build
+      - name: Testar
+        run: ctest --test-dir build --output-on-failure
