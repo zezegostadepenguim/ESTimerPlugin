@@ -11,7 +11,9 @@ class TimerPlugin;
 class TimerScreen : public EuroScopePlugIn::CRadarScreen {
 public:
     explicit TimerScreen(TimerPlugin& plugin);
-    ~TimerScreen() override;
+    // CRadarScreen não declara destrutor virtual: a tela só é destruída por
+    // "delete this" em OnAsrContentToBeClosed, com o tipo TimerScreen.
+    ~TimerScreen();
 
     void OnAsrContentLoaded(bool Loaded) override;
     void OnAsrContentToBeSaved() override;
