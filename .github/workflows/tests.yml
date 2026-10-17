@@ -1,4 +1,4 @@
-name: tests
+name: build
 
 on:
   push:
@@ -15,3 +15,29 @@ jobs:
         run: cmake --build build
       - name: Testar
         run: ctest --test-dir build --output-on-failure
+
+  dll:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar SDK do EuroScope
+        id: sdk
+        shell: bash
+        run: |
+          if [ -f sdk/EuroScopePlugIn.h ] && [ -f sdk/EuroScopePlugInDll.lib ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::SDK do EuroScope ausente em sdk/ (ver sdk/README.md); DLL nao compilada."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Compilar DLL (Win32 Release)
+        if: steps.sdk.outputs.ok == 'true'
+        run: |
+          cmake -S . -B build -A Win32
+          cmake --build build --config Release --target ESTimerPlugin
+      - name: Publicar DLL
+        if: steps.sdk.outputs.ok == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ESTimerPlugin
+          path: build/Release/ESTimerPlugin.dll

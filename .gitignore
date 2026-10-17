@@ -3,7 +3,3 @@ out/
 .vs/
 CMakeSettings.json
 *.user
-
-# Arquivos do SDK do EuroScope: copiados da instalação local (ver sdk/README.md)
-sdk/*.h
-sdk/*.lib

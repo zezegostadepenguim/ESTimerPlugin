@@ -6,5 +6,6 @@ Copie para esta pasta, a partir da pasta `PlugInEnvironment` da sua instalação
 - `EuroScopePlugIn.h`
 - `EuroScopePlugInDll.lib`
 
-Eles não são versionados (ver `.gitignore`). Para usar outra pasta, passe
-`-DEUROSCOPE_SDK_DIR=<caminho>` ao CMake.
+Com os dois arquivos enviados ao GitHub nesta pasta, o GitHub Actions compila a DLL
+a cada push (ver README, seção "Baixar a DLL"). Para compilar usando outra pasta,
+passe `-DEUROSCOPE_SDK_DIR=<caminho>` ao CMake.

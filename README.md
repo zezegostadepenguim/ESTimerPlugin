@@ -36,7 +36,15 @@ Digite na linha de comando do EuroScope:
 Presets e som ficam nas configurações do plugin (Settings do EuroScope); posição e
 visibilidade da janela ficam salvas em cada ASR.
 
-## Compilar
+## Baixar a DLL
+
+O GitHub Actions compila a DLL a cada push, desde que `sdk/` contenha
+`EuroScopePlugIn.h` e `EuroScopePlugInDll.lib` (ver `sdk/README.md`).
+
+1. Abra a aba **Actions** do repositório e clique na execução mais recente do workflow **build**.
+2. Em **Artifacts**, baixe **ESTimerPlugin** (um .zip com `ESTimerPlugin.dll`).
+
+## Compilar localmente
 
 Requisitos: Windows, Visual Studio 2019/2022 com "Desenvolvimento para desktop com C++"
 e CMake (já vem com o VS).
